@@ -1,0 +1,49 @@
+-- Error message when cloning with SSH key
+```git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists. ```
+
+--- Further error message on Macbook pro 14"
+```The authenticity of host 'github.com (140.82.121.3)' can't be established.
+ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.```
+
+
+Using this approach from stack overflow  https://stackoverflow.com/questions/2643502/git-how-to-solve-permission-denied-publickey-error-when-using-git,
+
+```
+First start by setting up your own public/private key pair set. This can use either DSA or RSA, so basically any key you setup will work. On most systems you can use ssh-keygen.
+
+1. First you'll want to cd into your .ssh directory. Open up the terminal and run:
+cd ~/.ssh && ssh-keygen
+
+2. Next you need to copy this to your clipboard.
+On OS X run: cat id_rsa.pub | pbcopy
+On Linux run: cat id_rsa.pub | xclip
+On Windows (via Cygwin/Git Bash) run: cat id_rsa.pub | clip
+On Windows (Powershell) run: Get-Content id_rsa.pub | Set-Clipboard (Thx to @orion elenzil)
+
+3. Add your key to your account via the website.
+4. Finally setup your .gitconfig.
+git config --global user.name "bob"
+git config --global user.email bob@... (don't forget to restart your command line to make sure the config is reloaded)
+That's it you should be good to clone and checkout.
+```
+
+-- It gave this key fingerprint below following step 2
+
+The key fingerprint is:
+SHA256:bou3xBfkx2xBBXbNrMxDXeKo4woFunph2gMSt2EE7dI chiedozie@Chiedozies-MacBook-Pro-2.local
+The key's randomart image is:
++---[RSA 3072]----+
+|.o          +o+=o|
+|  o        o +..=|
+| +    .   . o+.. |
+|o E  . . o + .=  |
+| = o.   S = =  . |
+|. o o. + . =     |
+| . =... = o      |
+|  ..+  =.+       |
+|  .. ...+.       |
++----[SHA256]-----+
